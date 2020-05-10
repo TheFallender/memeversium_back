@@ -5,10 +5,11 @@
   "description": "Memeversium Backend",
   "license": "ISC",
   "private": true,
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "start": "nodemon --exec babel-node src/app.js",
+    "start": "babel-node src/app.js",
+    "startLoop": "nodemon --exec babel-node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
