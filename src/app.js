@@ -56,8 +56,8 @@ const runApolloServer = function(context) {
 
 	//Listen on URL
 	try {
-		server.listen().then(({url}) => {
-			console.log(`Server ready at ${url}`);
+		server.listen({ port: process.env.PORT || 4000 }).then(({url}) => {
+			console.log(`Server ready at ${url} and on port ${process.env.PORT || 4000}`);
 		});
 	} catch (e) {
 		console.info(e);
