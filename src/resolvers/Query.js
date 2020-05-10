@@ -102,6 +102,15 @@ const Query = {
         //Search memes inside collection
         const result = await memeCLT.find({best: true}).toArray();
 
+        //Randomize memes
+        var j, x;
+        for (let i = result.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = result[i];
+            result[i] = result[j];
+            result[j] = x;
+        }
+
         //Return Memes
         return {msgInfo: `SUCCESS`, meme: result};
     },
