@@ -134,7 +134,7 @@ const Query = {
 
         //Search for the meme
         const meme = await memeCLT.findOne({_id: ObjectID(memeID)});
-        console.log(meme);
+
         if(!meme)
             return {msgInfo: `ERROR - Meme not found.`};
 
