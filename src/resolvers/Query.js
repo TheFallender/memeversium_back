@@ -2,8 +2,6 @@ import 'babel-polyfill';
 import * as uuid from 'uuid';
 import {MongoClient, ObjectID} from 'mongodb';
 
-//Require Bcrypt
-const bcrypt = require('bcrypt');
 
 const Query = {
     //############################# LOGS #############################
@@ -14,13 +12,12 @@ const Query = {
         const {userCLT} = ctx;
 
         //Check if the user exists (email)
-        const userEmail = await userCLT.findOne({email});
-        if (!userEmail)
+        const user = await userCLT.findOne({email});
+        if (!user)
             return {msgInfo: `ERROR - Invalid email/password.`};
 
         //Password crypt
-        const isValid = await bcrypt.compare(userEmail.salt + password, userEmail.password);
-        if (!isValid)
+        if (password !== user.password)
             return {msgInfo: `ERROR - Invalid email/password.`};
 
         //Token gen
@@ -32,12 +29,28 @@ const Query = {
             msgInfo: `SUCCESS`,
             data: [token],
             user: [{
-                _id: userEmail._id,
-                user: userEmail.user,
-                admin: userEmail.admin,
-                blocked: userEmail.blocked,
+                _id: user._id,
+                user: user.user,
+                admin: user.admin,
+                blocked: user.blocked,
             }]
         };
+    },
+
+
+    //Logout
+    getSalt: async (parent, args, ctx, info) => {
+        //Ctx and args
+        const {email} = args;
+        const {userCLT} = ctx;
+
+        //Check if the user exists and remove the token
+        const user = await userCLT.findOne({email});
+        if (!user)
+            return {msgInfo: `ERROR - Invalid email/token.`};
+
+
+        return {msgInfo: `SUCCESS`, data: [user.salt]};
     },
 
 

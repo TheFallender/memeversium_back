@@ -1,15 +1,13 @@
 import 'babel-polyfill';
 import {MongoClient, ObjectID} from 'mongodb';
 
-//Require Bcrypt
-const bcrypt = require('bcrypt');
 
 const Mutation = {
     //############################# ADD #############################
     //Add User
     addUser: async (parent, args, ctx, info) => {
         //Ctx and args
-        const {user, email, password} = args;
+        const {user, email, password, salt} = args;
         const {userCLT} = ctx;
 
         //Check if the user already exists (email)
@@ -22,16 +20,13 @@ const Mutation = {
         if (userName)
             return {msgInfo: `ERROR - Username ${user} already taken.`};
 
-        //Password crypt
-        const salt = await bcrypt.genSalt();
-        const passwordSalted = await bcrypt.hash(salt + password, 10);
 
         //Send User
         const result = await userCLT.insertOne({
             user,
             email,
-            password: passwordSalted,
-            salt: salt,
+            password,
+            salt,
             admin: false,
             blocked: false,
             token: null
