@@ -20,7 +20,6 @@ const Mutation = {
         if (userName)
             return {msgInfo: `ERROR - Username ${user} already taken.`};
 
-
         //Send User
         const result = await userCLT.insertOne({
             user,

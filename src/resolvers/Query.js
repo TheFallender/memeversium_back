@@ -141,8 +141,9 @@ const Query = {
         if (!user)
             return {msgInfo: `ERROR - User not found.`};
 
-        //Search memes inside collection
-        const result = await memeCLT.find({user: userID}).toArray();
+        //Search memes inside collection (from newest to oldest)
+        let result = await memeCLT.find({user: userID}).toArray();
+        result = result.sort((a,b) => b.date - a.date);
 
         //Return Memes
         return {msgInfo: `SUCCESS`, meme: result};
