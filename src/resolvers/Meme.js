@@ -9,7 +9,28 @@ const Meme = {
         const userID = parent.user;
 
         //Search the user
-        const user = await userCLT.findOne({_id: ObjectID(userID)});
+        let user = null;
+        //Check ID is not empty
+        if (userID !== "")
+            user = await userCLT.findOne({_id: ObjectID(userID)});
+        else
+            //Return removed
+            return {
+                _id: "INVALID_ID_USER_HAS_BEEN_REMOVED",
+                user: "<user removed>",
+                admin: false,
+                blocked: true,
+            }
+
+            
+        //Check that the user is valid 
+        if (!user)
+            return {
+                _id: "INVALID_ID_USER_HAS_BEEN_REMOVED",
+                user: "<user removed>",
+                admin: false,
+                blocked: true,
+            }
         
         //User return
         return {
