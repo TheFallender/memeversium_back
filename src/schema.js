@@ -5,6 +5,7 @@ const typeDefs = gql`
     type Query {
         #User Logs
         userLogin(email: String!, password: String!): msg!
+        getSalt(email: String!): msg!
         userLogout(userID: ID!, token: ID!): msg!
 
         #Meme gets      
@@ -22,7 +23,7 @@ const typeDefs = gql`
 
     type Mutation {
         #User methods
-        addUser(user: String!, email: String!, password: String!): msg!
+        addUser(user: String!, email: String!, password: String!, salt: String!): msg!
         addMeme(title: String!, userID: ID!, image: String!, token: ID!): msg!
          
 
