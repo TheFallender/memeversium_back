@@ -23,6 +23,7 @@
     "apollo-server": "^2.13.0",
     "babel-polyfill": "^6.26.0",
     "graphql": "^15.0.0",
+    "minimalist": "^1.0.0",
     "mongodb": "^3.5.7",
     "uuid": "^8.0.0"
   }
