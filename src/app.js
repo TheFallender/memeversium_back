@@ -16,16 +16,10 @@ import typeDefs from './schema';
 	const {ApolloServer} = require('apollo-server');
 
 
-
-//MongoDB
-	//User info
-	const usr = "runAsAdmin";
-	const pwd = "Txg6FuaFA8g%5EN53Fxp";
-	const url = "thefallencluster-7uuhn.gcp.mongodb.net/test?authSource=admin&replicaSet=TheFallenCluster-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
-
 //Connect to MongoDB
-const connectToDb = async function(usr, pwd, url) {
-	const uri = `mongodb+srv://${usr}:${pwd}@${url}`;
+const connectToDb = async function() {
+	const argv = require('minimist')(process.argv.slice(2));
+	const uri = `mongodb+srv://${argv.usr}:${argv.pwd}@${argv.url}?authSource=admin&replicaSet=TheFallenCluster-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`;
 	const client = new MongoClient(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
@@ -69,7 +63,7 @@ const runApolloServer = function(context) {
 
 //Run the App
 const runApp = async function() {
-	const client = await connectToDb(usr, pwd, url);
+	const client = await connectToDb();
 	console.log("Connecting to Mongo DB...");
 	try {
 		runApolloServer({
