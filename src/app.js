@@ -19,7 +19,7 @@ import typeDefs from './schema';
 //Connect to MongoDB
 const connectToDb = async function() {
 	const argv = require('minimist')(process.argv.slice(2));
-	const uri = `mongodb+srv://${argv.usr}:${argv.pwd}@${argv.url}?authSource=admin&replicaSet=TheFallenCluster-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`;
+	const uri = `mongodb+srv://${argv.usr}:${argv.pwd}@thefallencluster-7uuhn.gcp.mongodb.net/test?authSource=admin&replicaSet=TheFallenCluster-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`;
 	const client = new MongoClient(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true
