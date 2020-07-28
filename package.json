@@ -20,7 +20,7 @@
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
-    "apollo-server": "^2.13.0",
+    "apollo-server": "^2.14.2",
     "babel-polyfill": "^6.26.0",
     "graphql": "^15.0.0",
     "minimalist": "^1.0.0",
